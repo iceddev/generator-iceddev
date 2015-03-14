@@ -1,0 +1,24 @@
+{
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "description": "<%= description %>",
+  "author": "<%= author %>",
+  "contributors": <%= contributors %>,
+  "repository": "<%= repository %>",
+  "license": "<%= license %>",
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "main": "<%= main %>",
+  "files": <%= files %>,
+  "scripts": {
+    "test": "<%= test %>",
+    "build": "gulp"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^0.16.0",
+    "gulp": "^3.8.0"
+  },
+  "keywords": <%= keywords %>
+}

@@ -1,0 +1,36 @@
+{
+  "name": "generator-iceddev",
+  "version": "0.0.0",
+  "description": "Yeoman generator",
+  "author": "Iced Development <info@iceddev.com> (https://github.com/iceddev)",
+  "contributors": [],
+  "repository": "iceddev/generator-iceddev",
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "main": "app/index.js",
+  "files": [
+    "app"
+  ],
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "getobject": "^0.1.0",
+    "github-url-to-object": "^1.4.2",
+    "lodash": "^3.5.0",
+    "nlf": "^1.1.0",
+    "shelljs": "^0.3.0",
+    "yeoman-generator": "^0.18.9",
+    "yosay": "^1.0.2"
+  },
+  "devDependencies": {
+    "expect": "^1.6.0",
+    "mocha": "^2.2.1"
+  },
+  "keywords": [
+    "yeoman-generator"
+  ]
+}
