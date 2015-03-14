@@ -12,13 +12,9 @@
   "main": "<%= main %>",
   "files": <%= files %>,
   "scripts": {
-    "test": "<%= test %>",
-    "build": "gulp"
+    "test": "<%= test %>"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "eslint": "^0.16.0",
-    "gulp": "^3.8.0"
-  },
+  "dependencies": <%= dependencies %>,
+  "devDependencies": <%= devDependencies %>,
   "keywords": <%= keywords %>
 }

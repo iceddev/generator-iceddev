@@ -33,62 +33,62 @@ module.exports = yeoman.generators.Base.extend({
         type: 'input',
         name: 'name',
         message: 'name:',
-        default: this._fromPackage('name', this.appname)
+        default: this._defaultFromPackage('name', this.appname)
       },
       {
         type: 'input',
         name: 'version',
         message: 'version:',
-        default: this._fromPackage('version', '0.0.0')
+        default: this._defaultFromPackage('version', '0.0.0')
       },
       {
         type: 'input',
         name: 'description',
         message: 'description:',
-        default: this._fromPackage('description')
+        default: this._defaultFromPackage('description')
       },
       {
         type: 'input',
         name: 'author',
         message: 'author:',
-        default: this._fromPackage('author', this._findAuthor()),
+        default: this._defaultFromPackage('author', this._findAuthor()),
         store: true
       },
       {
         type: 'input',
         name: 'repository',
         message: 'repository:',
-        default: this._fromPackage('repository', this._findRemote())
+        default: this._findRemote()
       },
       {
         type: 'input',
         name: 'license',
         message: 'license:',
-        default: this._fromPackage('license', this._findLicense())
+        default: this._defaultFromPackage('license', this._findLicense())
       },
       {
         type: 'input',
         name: 'main',
         message: 'entry point:',
-        default: this._fromPackage('main', 'index.js')
+        default: this._defaultFromPackage('main', 'index.js')
       },
       {
         type: 'input',
         name: 'files',
         message: 'files in release:',
-        default: this._fromPackage('files')
+        default: this._defaultFromPackage('files')
       },
       {
         type: 'input',
         name: 'test',
         message: 'test command:',
-        default: this._fromPackage('scripts.test')
+        default: this._defaultFromPackage('scripts.test')
       },
       {
         type: 'input',
         name: 'keywords',
         message: 'keywords:',
-        default: this._fromPackage('keywords')
+        default: this._defaultFromPackage('keywords')
       }
     ];
 
@@ -105,10 +105,11 @@ module.exports = yeoman.generators.Base.extend({
 
       pkg.test = pkg.test || 'echo \"Error: no test specified\" && exit 1';
 
-      var contributors = this.originalPkg.contributors || [];
+      var contributors = this._fromPackage('contributors', []);
       pkg.contributors = this._formatList(contributors);
 
-      console.log(pkg);
+      pkg.dependencies = this._defaultFromPackage('dependencies', {});
+      pkg.devDependencies = this._defaultFromPackage('devDependencies', {});
 
       done();
     }.bind(this));
@@ -152,20 +153,28 @@ module.exports = yeoman.generators.Base.extend({
 
   _fromPackage: function(key, fallback){
     if(this.originalPkg){
-      var orig = getobject(this.originalPkg, key);
-
-      if(_.isArray(orig)){
-        return orig.join();
-      }
-
-      if(_.isString(orig)){
-        return orig;
-      }
-
-      return JSON.stringify(orig);
+      return getobject(this.originalPkg, key);
     }
 
     return fallback;
+  },
+
+  _defaultFromPackage: function(key, fallback){
+    var def = this._fromPackage(key, fallback);
+
+    if(def == null){
+      return def;
+    }
+
+    if(_.isArray(def)){
+      return def.join();
+    }
+
+    if(_.isString(def)){
+      return def;
+    }
+
+    return JSON.stringify(def, null, 4).replace('\n}', '\n  }');
   },
 
   _findAuthor: function(){
@@ -192,7 +201,6 @@ module.exports = yeoman.generators.Base.extend({
     }
 
     var files = _.union(input, licenses, this.main);
-    console.log(files);
 
     return this._formatList(files);
   },
@@ -215,7 +223,7 @@ module.exports = yeoman.generators.Base.extend({
       .sortBy()
       .value();
 
-    return JSON.stringify(output, null, 4).replace(']', '  ]');
+    return JSON.stringify(output, null, 4).replace('\n]', '\n  ]');
   },
 
   _findLicenseFiles: function(){
