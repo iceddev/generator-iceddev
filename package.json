@@ -1,6 +1,6 @@
 {
   "name": "generator-iceddev",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Yeoman generator",
   "author": "Iced Development <info@iceddev.com> (https://github.com/iceddev)",
   "contributors": [],
