@@ -103,7 +103,7 @@ module.exports = yeoman.generators.Base.extend({
 
       pkg.description = pkg.description || '';
 
-      pkg.test = pkg.test || 'echo \"Error: no test specified\" && exit 1';
+      pkg.test = pkg.test || 'echo \\"Error: no test specified\\" && exit 1';
 
       var contributors = this._fromPackage('contributors', []);
       pkg.contributors = this._formatList(contributors);
