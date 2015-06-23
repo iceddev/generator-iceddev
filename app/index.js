@@ -33,7 +33,7 @@ module.exports = yeoman.generators.Base.extend({
         type: 'input',
         name: 'name',
         message: 'name:',
-        default: this._defaultFromPackage('name', this.appname)
+        default: this._defaultFromPackage('name', _.kebabCase(this.appname))
       },
       {
         type: 'input',
