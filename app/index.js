@@ -82,7 +82,7 @@ module.exports = yeoman.generators.Base.extend({
         type: 'input',
         name: 'test',
         message: 'test command:',
-        default: this._defaultFromPackage('scripts.test')
+        default: this._defaultFromPackage('scripts.test', 'eslint **/*.js && jscs **/*.js')
       },
       {
         type: 'input',
@@ -103,13 +103,15 @@ module.exports = yeoman.generators.Base.extend({
 
       pkg.description = pkg.description || '';
 
-      pkg.test = pkg.test || 'echo \\"Error: no test specified\\" && exit 1';
-
       var contributors = this._fromPackage('contributors', []);
       pkg.contributors = this._formatList(contributors);
 
       pkg.dependencies = this._defaultFromPackage('dependencies', {});
-      pkg.devDependencies = this._defaultFromPackage('devDependencies', {});
+      pkg.devDependencies = this._defaultFromPackage('devDependencies', {
+        'jscs': '^1.13.1',
+        'eslint': '0.23.0',
+        'esprima-fb': '^15001.1.0-dev-harmony-fb'
+      });
 
       done();
     }.bind(this));
@@ -136,6 +138,10 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copy(
         this.templatePath('eslintrc'),
         this.destinationPath('.eslintrc')
+      );
+      this.fs.copy(
+        this.templatePath('jscsrc'),
+        this.destinationPath('.jscsrc')
       );
       this.fs.copy(
         this.templatePath('travis.yml'),

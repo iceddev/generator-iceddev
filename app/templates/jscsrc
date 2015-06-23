@@ -1,0 +1,31 @@
+{
+  "preset": "node-style-guide",
+  "esnext": true,
+  "esprima": "esprima-fb",
+  "disallowSpaceAfterKeywords": [
+    "if",
+    "for",
+    "while"
+  ],
+  "disallowSpacesInFunction": {
+    "beforeOpeningCurlyBrace": true,
+    "beforeOpeningRoundBrace": true
+  },
+  "maximumLineLength": null,
+  "requireCamelCaseOrUpperCaseIdentifiers": null,
+  "requireCapitalizedComments": null,
+  "requireSpaceAfterKeywords": [
+    "else",
+    "try",
+    "catch",
+    "do",
+    "switch"
+  ],
+  "requireSpaceBeforeBlockStatements": null,
+  "requireSpaceBeforeKeywords": [
+    "else",
+    "catch"
+  ],
+  "requireSpacesInFunction": null,
+  "requireTrailingComma": null
+}
