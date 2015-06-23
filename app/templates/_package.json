@@ -11,9 +11,7 @@
   },
   "main": "<%= main %>",
   "files": <%= files %>,
-  "scripts": {
-    "test": "<%= test %>"
-  },
+  "scripts": <%= scripts %>,
   "dependencies": <%= dependencies %>,
   "devDependencies": <%= devDependencies %>,
   "keywords": <%= keywords %>

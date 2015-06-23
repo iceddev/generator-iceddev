@@ -82,13 +82,19 @@ module.exports = yeoman.generators.Base.extend({
         type: 'input',
         name: 'test',
         message: 'test command:',
-        default: this._defaultFromPackage('scripts.test', 'eslint **/*.js && jscs **/*.js')
+        default: this._defaultFromPackage('scripts.test')
       },
       {
         type: 'input',
         name: 'keywords',
         message: 'keywords:',
         default: this._defaultFromPackage('keywords')
+      },
+      {
+        type: 'confirm',
+        name: 'babel',
+        message: 'use babel?',
+        default: true
       }
     ];
 
@@ -99,6 +105,14 @@ module.exports = yeoman.generators.Base.extend({
 
       pkg.files = this._formatFiles(pkg.files);
 
+      if(!pkg.test){
+        if(props.babel){
+          pkg.test = 'eslint src/**/*.js && jscs src/**/*.js';
+        } else {
+          pkg.test = 'eslint **/*.js && jscs **/*.js';
+        }
+      }
+
       pkg.keywords = this._formatKeywords(pkg.keywords);
 
       pkg.description = pkg.description || '';
@@ -107,11 +121,25 @@ module.exports = yeoman.generators.Base.extend({
       pkg.contributors = this._formatList(contributors);
 
       pkg.dependencies = this._defaultFromPackage('dependencies', {});
-      pkg.devDependencies = this._defaultFromPackage('devDependencies', {
+
+      var scripts = {
+        test: pkg.test
+      };
+
+      var devDepDefaults = {
         'jscs': '^1.13.1',
         'eslint': '0.23.0',
         'esprima-fb': '^15001.1.0-dev-harmony-fb'
-      });
+      };
+      if(props.babel){
+        devDepDefaults.babel = '^5.5.8';
+        scripts.build = 'babel ./src/ --out-dir ./';
+        scripts.prepublish = 'npm run build';
+      }
+
+      pkg.scripts = this._objectToString(scripts);
+
+      pkg.devDependencies = this._defaultFromPackage('devDependencies', devDepDefaults);
 
       done();
     }.bind(this));
@@ -180,7 +208,11 @@ module.exports = yeoman.generators.Base.extend({
       return def;
     }
 
-    return JSON.stringify(def, null, 4).replace('\n}', '\n  }');
+    return this._objectToString(def);
+  },
+
+  _objectToString: function(obj){
+    return JSON.stringify(obj, null, 4).replace('\n}', '\n  }');
   },
 
   _findAuthor: function(){
