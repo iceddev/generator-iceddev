@@ -107,9 +107,9 @@ module.exports = yeoman.generators.Base.extend({
 
       if(!pkg.test){
         if(props.babel){
-          pkg.test = 'eslint src/**/*.js && jscs src/**/*.js';
+          pkg.test = 'eslint src/**/*.js';
         } else {
-          pkg.test = 'eslint **/*.js && jscs **/*.js';
+          pkg.test = 'eslint **/*.js';
         }
       }
 
@@ -127,9 +127,7 @@ module.exports = yeoman.generators.Base.extend({
       };
 
       var devDepDefaults = {
-        'jscs': '^1.13.1',
-        'eslint': '0.23.0',
-        'esprima-fb': '^15001.1.0-dev-harmony-fb'
+        'eslint': '^0.23.0'
       };
       if(props.babel){
         devDepDefaults.babel = '^5.5.8';
@@ -166,10 +164,6 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copy(
         this.templatePath('eslintrc'),
         this.destinationPath('.eslintrc')
-      );
-      this.fs.copy(
-        this.templatePath('jscsrc'),
-        this.destinationPath('.jscsrc')
       );
       this.fs.copy(
         this.templatePath('travis.yml'),
