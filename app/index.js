@@ -127,7 +127,7 @@ module.exports = yeoman.generators.Base.extend({
       };
 
       var devDepDefaults = {
-        'eslint': '0.23.0'
+        'eslint': '^0.23.0'
       };
       if(props.babel){
         devDepDefaults.babel = '^5.5.8';
