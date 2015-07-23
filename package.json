@@ -21,6 +21,7 @@
     "getobject": "^0.1.0",
     "github-url-to-object": "^1.4.2",
     "lodash": "^3.5.0",
+    "mkdirp": "^0.5.1",
     "nlf": "^1.1.0",
     "shelljs": "^0.3.0",
     "yeoman-generator": "^0.18.9",

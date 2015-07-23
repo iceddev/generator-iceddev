@@ -9,6 +9,7 @@ var shell = require('shelljs');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var mkdirp = require('mkdirp');
 var getobject = require('getobject').get;
 var identifyLicense = require('nlf/lib/license-find');
 
@@ -150,6 +151,12 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('package.json'),
         this.pkg
       );
+    },
+
+    babel: function(){
+      if(this.pkg.babel){
+        mkdirp.sync('./src/');
+      }
     },
 
     projectfiles: function () {
